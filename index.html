@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Akai Hana - Home</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #0b0b0b;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      overflow: hidden;
+    }
+    h1 {
+      color: #c8102e;
+      font-size: 3em;
+    }
+    p {
+      font-size: 1.2em;
+    }
+    a {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 24px;
+      background-color: #c8102e;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: 0.3s;
+      z-index: 2;
+      position: relative;
+    }
+    a:hover {
+      background-color: #7a0008;
+    }
+    .flowers {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 1;
+    }
+    .petal {
+      position: absolute;
+      width: 36px;
+      height: 36px;
+      transform-origin: center;
+      opacity: 0.9;
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      100% { transform: translateY(-20vh) rotate(360deg); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+  <h1>Welcome to Akai Hana</h1>
+  <p>A red & black themed home page with floating Japanese flowers.</p>
+  <a href="https://example.com" target="_blank">Visit External Website</a>
+
+  <div class="flowers"></div>
+
+  <script>
+    const flowersContainer = document.querySelector('.flowers');
+    const PETAL_SVG = `<svg viewBox="0 0 64 64" width="64" height="64" xmlns="http://www.w3.org/2000/svg">
+      <path d="M32 6 C44 6 58 20 32 46 C6 20 20 6 32 6 Z" fill="currentColor"/>
+    </svg>`;
+
+    function makePetal(){
+      const wrap = document.createElement('div');
+      wrap.className='petal';
+      wrap.style.left=Math.random()*100+'vw';
+      wrap.style.color=Math.random() > 0.5 ? '#c8102e' : '#7a0008';
+      const size = 20 + Math.random()*30;
+      wrap.style.width = size+'px';
+      wrap.style.height = size+'px';
+      const duration = 10 + Math.random()*20;
+      wrap.style.animation = `floatUp ${duration}s linear infinite`;
+      wrap.innerHTML = PETAL_SVG;
+      flowersContainer.appendChild(wrap);
+      setTimeout(()=> wrap.remove(), duration*1000);
+    }
+
+    setInterval(makePetal, 1200);
+    for(let i=0; i<15; i++) makePetal();
+  </script>
+</body>
+</html>
